@@ -13,4 +13,3 @@ slice get_the_latest_sender() method_id {
    return ds~load_msg_addr();
 }
 
-

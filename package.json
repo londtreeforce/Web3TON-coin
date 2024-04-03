@@ -26,9 +26,13 @@
   "scripts": {
     "compile": "ts-node ./scripts/compile.ts",
     "test": "yarn compile && yarn jest",
-    "deploy:testnet": "yarn compile && ts-node ./scripts/deploy.ts"
+    "deploy": "TESTNET=true yarn compile && ts-node ./scripts/deploy.ts",
+    "deploy:mainnet": "yarn compile && ts-node ./scripts/deploy.ts",
+    "onchaintest": "TESTNET=true ts-node ./scripts/onchaintest.ts",
+    "onchaintest:mainnet": "ts-node ./scripts/onchaintest.ts"
   },
   "dependencies": {
+    "@orbs-network/ton-access": "^2.3.3",
     "@ton/core": "^0.56.3",
     "@ton/crypto": "^3.2.0",
     "ton": "^13.9.0"
