@@ -1,21 +1,15 @@
-
-
-import { Address, Cell, contractAddress, toNano } from "ton-core";
+import { Cell, contractAddress, Address, TonClient4, toNano } from "ton";
 import { hex } from "../build/main.compiled.json";
 import { getHttpV4Endpoint } from "@orbs-network/ton-access";
-import { TonClient4 } from "ton";
 import qs from "qs";
 import qrcode from "qrcode-terminal";
-
-import dotenv from "dotenv";
-dotenv.config();
-
 
 async function onchainTestScript() {
   const codeCell = Cell.fromBoc(Buffer.from(hex, "hex"))[0];
   const dataCell = new Cell();
 
-  const address = contractAddress(0, {
+  const address = contractAddress(0,{
+    
     code: codeCell,
     data: dataCell,
   });
@@ -34,10 +28,8 @@ async function onchainTestScript() {
   }
 
   let link =
-    `https://test.tonhub.com/transfer/` +
-    address.toString({
-        testOnly: process.env.TESTNET ? true : false,
-    }) +
+    `https://${process.env.TESTNET ? "test." : ""}tonhub.com/transfer/` +
+    address.toString({ testOnly: true }) +
     "?" +
     qs.stringify({
       text: "Simple test transaction",
@@ -75,7 +67,9 @@ async function onchainTestScript() {
     ) {
       console.log(
         "New recent sender found: " +
-          most_recent_sender.toString({ testOnly: true })
+          most_recent_sender.toString({
+            testOnly: process.env.TESTNET ? true : false,
+          })
       );
       recent_sender_archive = most_recent_sender;
     }

@@ -14,7 +14,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 async function deployScript() {
-  
+  console.log(
+    "================================================================="
+  );
   console.log("Deploy script is running, let's deploy our main.fc contract...");
 
   const codeCell = Cell.fromBoc(Buffer.from(hex, "hex"))[0];
@@ -34,14 +36,10 @@ async function deployScript() {
     data: dataCell,
   });
 
-
-
-
-
   console.log(
     `The address of the contract is following: ${address.toString()}`
   );
-  console.log(`Please scan the QR code below to deploy the contract to ${process.env.TESTNET ? "testnet" : "mainnet"}`);
+  console.log(`Please scan the QR code below to deploy the contract ${process.env.TESTNET ? "testnet" : "mainnet"}`);
 
   let link =
     `https://${process.env.TESTNET ? "test." : ""}.tonhub.com/transfer/` +
